@@ -51,7 +51,7 @@ describe('PATCH /api/tasks/:id', () => {
   });
 
   it('updates a task via the provider', async () => {
-    const updatedTask = { id: '3', title: 'Updated task' };
+    const updatedTask = { id: '3', title: 'Updated task', done: false };
     vi.mocked(taskProvider.updateTask).mockResolvedValue(updatedTask);
 
     const res = await request(app)

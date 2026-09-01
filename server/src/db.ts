@@ -7,7 +7,7 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir);
 }
 
-export const db = new Database(path.join(dataDir, 'denizen.db'));
+export const db: Database.Database = new Database(path.join(dataDir, 'denizen.db'));
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (

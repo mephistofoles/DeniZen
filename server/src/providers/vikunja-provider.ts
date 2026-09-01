@@ -38,7 +38,7 @@ class VikunjaProvider implements TaskProvider {
     return res.json();
   }
 
-  async getTasks(): Promize<Task[]> {
+  async getTasks(): Promise<Task[]> {
     const data = await this.request(`/api/v2/tasks`);
     return data.items.map(mapVikunjaTask);
   }
