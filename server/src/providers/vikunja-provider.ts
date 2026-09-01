@@ -16,7 +16,7 @@ function mapVikunjaTask(vTask: VikunjaTaskResponse): Task {
     id: String(vTask.id),
     title: vTask.title,
     done: vTask.done,
-    dueDate: vTask.due_date,
+    ...(vTask.due_date ? { dueDate: vTask.due_date } : {}),
     projectId: String(vTask.project_id),
   };
 }
