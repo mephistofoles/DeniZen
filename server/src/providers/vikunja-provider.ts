@@ -3,6 +3,14 @@ import type { Task, TaskProvider } from '@denizen/shared';
 const VIKUNJA_URL = process.env.VIKUNJA_URL;
 const VIKUNJA_TOKEN = process.env.VIKUNJA_TOKEN;
 
+interface VikunjaTaskResponse {
+  id: number;
+  title: string;
+  done: boolean;
+  due_date?: string;
+  project_id: number;
+}
+
 function mapVikunjaTask(vTask: any): Task {
   return {
     id: String(vTask.id),
