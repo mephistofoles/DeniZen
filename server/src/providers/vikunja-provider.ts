@@ -11,7 +11,7 @@ interface VikunjaTaskResponse {
   project_id: number;
 }
 
-function mapVikunjaTask(vTask: any): Task {
+function mapVikunjaTask(vTask: VikunjaTaskResponse): Task {
   return {
     id: String(vTask.id),
     title: vTask.title,
