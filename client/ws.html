@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Scratchpad</title>
+    <style>
+        body { font-family: monospace; background: #1e1e1e; color: #ececec; padding: 20px; }
+        #log { background: #000; border: 1px solid #333; padding: 10px; height: 300px; overflow-y: scroll; margin-top: 10px; }
+        .info { color: #888; }
+        .success { color: #4caf50; }
+        .error { color: #f44336; }
+        .message { color: #2196f3; }
+    </style>
+</head>
+<body>
+
+    <h2>WebSocket Test Page</h2>
+    <button onclick="sendMessage()">Send Test Message</button>
+    <div id="log"></div>
+
+    <script>
+        const logDiv = document.getElementById('log');
+
+        function log(text, className = 'info') {
+            const p = document.createElement('p');
+            p.className = className;
+            p.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+            logDiv.appendChild(p);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        // Replace with your actual WebSocket URL (e.g., "ws://localhost:8080")
+        // Using a public echo server for demonstration purposes
+        const socketUrl = 'ws://10.0.0.189:4000'; 
+        
+        log(`Connecting to ${socketUrl}...`);
+        const socket = new WebSocket(socketUrl);
+
+        // Connection opened
+        socket.addEventListener('open', (event) => {
+            log('Connected successfully!', 'success');
+        });
+
+        // Listen for messages
+        socket.addEventListener('message', (event) => {
+            log(`Received: ${event.data}`, 'message');
+        });
+
+        // Listen for errors
+        socket.addEventListener('error', (event) => {
+            log('WebSocket Error observed', 'error');
+        });
+
+        // Connection closed
+        socket.addEventListener('close', (event) => {
+            log('Connection closed.', 'error');
+        });
+
+        // Function to send data
+        function sendMessage() {
+            if (socket.readyState === WebSocket.OPEN) {
+                const msg = "Hello WebSocket!";
+                socket.send(msg);
+                log(`Sent: ${msg}`);
+            } else {
+                log('Cannot send message. Socket is not open.', 'error');
+            }
+        }
+    </script>
+</body>
+</html>
